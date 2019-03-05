@@ -1,23 +1,14 @@
 import { createStore } from 'redux';
 
 /**
- * @reducer
+ * @reducer - Combined Reducers
  */
-const reducer = (state = { laptops: [] }, action) => {
-  switch (action.type) {
-    case 'POST_LAPTOP':
-      return {
-        laptops: [...state.laptops, ...action.payload]
-      };
-  }
-
-  return state;
-};
+import reducers from './reducers/index';
 
 /**
  * @store - create Redux Store
  */
-const store = createStore(reducer);
+const store = createStore(reducers);
 store.subscribe(() => console.log('current state is: ', store.getState()));
 
 /**
@@ -42,13 +33,18 @@ store.dispatch({
 });
 
 store.dispatch({
-  type: 'POST_LAPTOP',
-  payload: [
-    {
-      id: 3,
-      title: 'this is the third laptop title',
-      description: 'this is the tertiary laptop description',
-      price: 3299.99
-    }
-  ]
+  type: 'DELETE_LAPTOP',
+  payload: {
+    id: 1
+  }
+});
+
+store.dispatch({
+  type: 'UPDATE_LAPTOP',
+  payload: {
+    id: 2,
+    title: 'Updated title',
+    description: 'Updated Description',
+    price: 999.99
+  }
 });

@@ -152,7 +152,31 @@ eval("module.exports = function(originalModule) {\n\tif (!originalModule.webpack
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _redux = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n\nfunction _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }\n\n/**\r\n * @reducer\r\n */\nvar reducer = function reducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { laptops: [] };\n  var action = arguments[1];\n\n  switch (action.type) {\n    case 'POST_LAPTOP':\n      return {\n        laptops: [].concat(_toConsumableArray(state.laptops), _toConsumableArray(action.payload))\n      };\n  }\n\n  return state;\n};\n\n/**\r\n * @store - create Redux Store\r\n */\nvar store = (0, _redux.createStore)(reducer);\nstore.subscribe(function () {\n  return console.log('current state is: ', store.getState());\n});\n\n/**\r\n * @actions - create and dispatch actions\r\n */\nstore.dispatch({\n  type: 'POST_LAPTOP',\n  payload: [{\n    id: 1,\n    title: 'this is a laptop title',\n    description: 'this is the laptop description',\n    price: 1299.99\n  }, {\n    id: 2,\n    title: 'this is a another laptop title',\n    description: 'this is the second laptop description',\n    price: 1655.99\n  }]\n});\n\nstore.dispatch({\n  type: 'POST_LAPTOP',\n  payload: [{\n    id: 3,\n    title: 'this is the third laptop title',\n    description: 'this is the tertiary laptop description',\n    price: 3299.99\n  }]\n});\n\n//# sourceURL=webpack:///./src/app.js?");
+eval("\n\nvar _redux = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n\nvar _index = __webpack_require__(/*! ./reducers/index */ \"./src/reducers/index.js\");\n\nvar _index2 = _interopRequireDefault(_index);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n/**\r\n * @store - create Redux Store\r\n */\nvar store = (0, _redux.createStore)(_index2.default);\n\n/**\r\n * @reducer - Combined Reducers\r\n */\n\nstore.subscribe(function () {\n  return console.log('current state is: ', store.getState());\n});\n\n/**\r\n * @actions - create and dispatch actions\r\n */\nstore.dispatch({\n  type: 'POST_LAPTOP',\n  payload: [{\n    id: 1,\n    title: 'this is a laptop title',\n    description: 'this is the laptop description',\n    price: 1299.99\n  }, {\n    id: 2,\n    title: 'this is a another laptop title',\n    description: 'this is the second laptop description',\n    price: 1655.99\n  }]\n});\n\nstore.dispatch({\n  type: 'DELETE_LAPTOP',\n  payload: {\n    id: 1\n  }\n});\n\nstore.dispatch({\n  type: 'UPDATE_LAPTOP',\n  payload: {\n    id: 2,\n    title: 'Updated title',\n    description: 'Updated Description',\n    price: 999.99\n  }\n});\n\n//# sourceURL=webpack:///./src/app.js?");
+
+/***/ }),
+
+/***/ "./src/reducers/index.js":
+/*!*******************************!*\
+  !*** ./src/reducers/index.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _redux = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n\nvar _laptopReducers = __webpack_require__(/*! ./laptopReducers */ \"./src/reducers/laptopReducers.js\");\n\nvar _laptopReducers2 = _interopRequireDefault(_laptopReducers);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = (0, _redux.combineReducers)({\n  laptops: _laptopReducers2.default\n});\n\n//# sourceURL=webpack:///./src/reducers/index.js?");
+
+/***/ }),
+
+/***/ "./src/reducers/laptopReducers.js":
+/*!****************************************!*\
+  !*** ./src/reducers/laptopReducers.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };\n\nfunction _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }\n\nvar laptopReducer = function laptopReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { laptops: [] };\n  var action = arguments[1];\n\n  switch (action.type) {\n    case 'POST_LAPTOP':\n      return {\n        laptops: [].concat(_toConsumableArray(state.laptops), _toConsumableArray(action.payload))\n      };\n    case 'DELETE_LAPTOP':\n      var currentLaptopToDelete = [].concat(_toConsumableArray(state.laptops));\n      var indexToDelete = currentLaptopToDelete.findIndex(function (book) {\n        return book.id === action.payload.id;\n      });\n      return {\n        laptops: [].concat(_toConsumableArray(currentLaptopToDelete.slice(0, indexToDelete)), _toConsumableArray(currentLaptopToDelete.slice(indexToDelete + 1)))\n      };\n    case 'UPDATE_LAPTOP':\n      var currentLaptopToUpdate = [].concat(_toConsumableArray(state.laptops));\n      var indexToUpdate = currentLaptopToUpdate.findIndex(function (book) {\n        return book.id === action.payload.id;\n      });\n      var newLaptopUpdate = _extends({}, currentLaptopToUpdate[indexToUpdate], {\n        title: action.payload.title,\n        description: action.payload.description,\n        price: action.payload.price\n      });\n      return {\n        laptops: [].concat(_toConsumableArray(currentLaptopToUpdate.slice(0, indexToUpdate)), [newLaptopUpdate], _toConsumableArray(currentLaptopToUpdate.slice(indexToUpdate + 1)))\n      };\n  }\n\n  return state;\n};\n\nexports.default = laptopReducer;\n\n//# sourceURL=webpack:///./src/reducers/laptopReducers.js?");
 
 /***/ })
 

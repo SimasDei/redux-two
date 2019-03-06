@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLaptops } from '../../actions/laptopActions';
+import Container from 'react-bootstrap/Container';
+import { Col, Row, Button } from 'react-bootstrap';
+
+import LaptopItem from './laptopItem';
 
 class LaptopList extends Component {
   componentDidMount() {
@@ -9,17 +13,19 @@ class LaptopList extends Component {
   }
   render() {
     const laptopList = this.props.laptops.map(laptop => (
-      <div key={laptop.id}>
-        <h2>{laptop.title}</h2>
-        <h2>{laptop.description}</h2>
-        <h2>{laptop.price}</h2>
-      </div>
+      <Col key={laptop.id} xs={12} sm={6} md={4}>
+        <LaptopItem
+          id={laptop.id}
+          title={laptop.title}
+          description={laptop.description}
+          price={laptop.price}
+        />
+      </Col>
     ));
     return (
-      <div>
-        <h1>React Component</h1>
-        {laptopList}
-      </div>
+      <Container>
+        <Row>{laptopList}</Row>
+      </Container>
     );
   }
 }

@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container';
 import { Col, Row, Button } from 'react-bootstrap';
 
 import LaptopItem from './laptopItem';
+import LaptopsForm from './laptopsForm';
+import Cart from './cart';
 
 class LaptopList extends Component {
   componentDidMount() {
@@ -13,7 +15,7 @@ class LaptopList extends Component {
   }
   render() {
     const laptopList = this.props.laptops.map(laptop => (
-      <Col key={laptop.id} xs={12} sm={6} md={4}>
+      <Col key={laptop.id} xs={12} sm={6} md={4} className="">
         <LaptopItem
           id={laptop.id}
           title={laptop.title}
@@ -24,7 +26,15 @@ class LaptopList extends Component {
     ));
     return (
       <Container>
-        <Row>{laptopList}</Row>
+        <Row>
+          <Cart />
+        </Row>
+        <Row className="mt-5">
+          <Col xs={12} sm={6} md={4}>
+            <LaptopsForm />
+          </Col>
+          {laptopList}
+        </Row>
       </Container>
     );
   }

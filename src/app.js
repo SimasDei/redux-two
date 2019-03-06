@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import React from 'react';
+import { render } from 'react-dom';
 
 /**
  * @reducer - Combined Reducers
@@ -12,7 +14,6 @@ import reducers from './reducers/index';
 const middleware = applyMiddleware(logger);
 const store = createStore(reducers, middleware);
 
-// store.subscribe(() => console.log('current state is: ', store.getState()));
 /**
  * @actions - Import Actions
  */
@@ -22,6 +23,13 @@ import {
   postLaptop,
   updateLaptop
 } from './actions/laptopActions';
+
+/**
+ * @components - import React Components
+ */
+import LaptopList from './components/pages/laptopList';
+
+render(<LaptopList />, document.getElementById('app'));
 
 /**
  * @actions - Laptop actions

@@ -1,7 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+/**
+ * @react - React Imports
+ */
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 
 /**
  * @reducer - Combined Reducers
@@ -29,36 +33,23 @@ import {
  */
 import LaptopList from './components/pages/laptopList';
 
-render(<LaptopList />, document.getElementById('app'));
+render(
+  <Provider store={store}>
+    <LaptopList />
+  </Provider>,
+  document.getElementById('app')
+);
 
 /**
  * @actions - Laptop actions
  */
-store.dispatch(
-  postLaptop([
-    {
-      id: 1,
-      title: 'this is a laptop title',
-      description: 'this is the laptop description',
-      price: 1299.99
-    },
-    {
-      id: 2,
-      title: 'this is a another laptop title',
-      description: 'this is the second laptop description',
-      price: 1655.99
-    }
-  ])
-);
+// store.dispatch(
+//   postLaptop([
 
-store.dispatch(deleteLaptop({ id: 1 }));
-store.dispatch(
-  updateLaptop({
-    id: 2,
-    title: 'Updated Title'
-  })
-);
+//   ])
+// );
+
 /**
  * @actions - Shopping Cart actions
  */
-store.dispatch(addToCart([{ id: 1 }]));
+// store.dispatch(addToCart([{ id: 1 }]));

@@ -26,6 +26,16 @@ export function deleteLaptop(id) {
     payload: id
   };
 }
+
+/**
+ * @get
+ */
+export function getLaptops() {
+  return {
+    type: 'GET_LAPTOPS'
+  };
+}
+
 /**
   * type: 'POST_LAPTOP',
   payload: [

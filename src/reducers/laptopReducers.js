@@ -1,5 +1,28 @@
-const laptopReducer = (state = { laptops: [] }, action) => {
+const laptopReducer = (
+  state = {
+    laptops: [
+      {
+        id: 1,
+        title: 'this is a laptop title',
+        description: 'this is the laptop description',
+        price: 1299.99
+      },
+      {
+        id: 2,
+        title: 'this is a another laptop title',
+        description: 'this is the second laptop description',
+        price: 1655.99
+      }
+    ]
+  },
+  action
+) => {
   switch (action.type) {
+    case 'GET_LAPTOPS':
+      return {
+        ...state,
+        laptops: [...state.laptops]
+      };
     case 'POST_LAPTOP':
       return {
         laptops: [...state.laptops, ...action.payload]
